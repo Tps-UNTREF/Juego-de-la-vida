@@ -22,3 +22,5 @@ class Menu(object):
         except Exception:
             print('Por favor ingrese un numero entero')
             return self.leer_entero(self.leer_teclado(texto))
+
+     #Prueba github1
