@@ -24,3 +24,4 @@ class Menu(object):
             return self.leer_entero(self.leer_teclado(texto))
 
      #Prueba github1 mergeado
+        
