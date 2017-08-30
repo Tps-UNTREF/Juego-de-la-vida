@@ -45,8 +45,9 @@ class Menu(object):
                     break
                 else:
                     raise Exception
-            except Exception:
-                print('Por favor, ingrese un numero valido.')
+        except Exception:
+            print('Por favor, ingrese un numero valido.')
+
 
     def leer_teclado(self,texto):
         try:
