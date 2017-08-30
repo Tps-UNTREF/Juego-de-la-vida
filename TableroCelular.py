@@ -32,7 +32,7 @@ class TableroCelular(object):
         if(fila > self.numero_columnas_filas or columna > self.numero_columnas_filas):
             raise IndexError
         elif(valor_de_matriz != '-' or valor_de_matriz != '*'):
-            raise KeyError #cambiar error
+            raise Exception('Ingresar - o * en el valor_de_la_matriz') #cambiar error
         else:
             self.matriz[fila][columna] = valor_de_matriz
 

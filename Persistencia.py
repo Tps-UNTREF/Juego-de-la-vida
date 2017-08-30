@@ -3,9 +3,7 @@ class Persistencia(object):
 
     def guardar(self, ruta , tablero_celular, clave):
         modulo_guardado = shelve.open(ruta)
-
-        if modulo_guardado[clave] == None:
-
+        if not clave in modulo_guardado:
            modulo_guardado[clave] = tablero_celular
            print("-------" + "tablero guardado con exito" + "--------")
            modulo_guardado.close()
