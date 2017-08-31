@@ -1,6 +1,9 @@
 import shelve
 class Persistencia(object):
 
+    def __init__(self):
+        pass
+
     def guardar(self, ruta , tablero_celular, clave):
         modulo_guardado = shelve.open(ruta)
         if not clave in modulo_guardado:
@@ -23,4 +26,4 @@ class Persistencia(object):
             print("------" + "tablero cargado con exito" + "-------" )
             return tablero_celular
         else:
-            print("-------" + "no existe tablero guardado en la clave" + " " + str(clave) + "--------")
+            raise Exception("-------" + "no existe tablero guardado en la clave" + " " + str(clave) + "--------")
