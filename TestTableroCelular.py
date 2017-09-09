@@ -21,6 +21,8 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.rellenar_matriz_al_azar(4)
         print(self.tablero.matriz)
 
+
+
     def test_celula_mutan(self):
         print('Tablero antes')
         print(self.tablero.matriz)
