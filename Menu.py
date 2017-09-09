@@ -27,13 +27,15 @@ class Menu(object):
                                 self.tablero.imprimir_tablero()
                                 numero2_1 = self.leer_entero(
                                     self.leer_teclado('Ingrese una accion: \n' '1- Siguiente paso \n'
-                                                      '2- Modificar tablero \n' '3- Guardar tablero \n'))
+                                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver al menu \n'))
                                 break
                             except IndexError:
                                 print('La cantidad de celdas vivas tiene que ser hasta ' + str(
                                     len(self.tablero.matriz) * len(self.tablero.matriz)))
                         if numero2_1 == 1:
-                            '''SIGUIENTE PASO'''
+                            '''MODO NORMAL - SIGUIENTE PASO'''
+                            self.tablero.mutar_celulas()
+                            self.tablero.imprimir_tablero()
                         elif numero2_1 == 2:
                             '''MODIFICAR TABLERO'''
                             while True:
