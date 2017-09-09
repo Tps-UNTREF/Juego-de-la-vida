@@ -16,10 +16,11 @@ class Menu(object):
                                           '2- Crear tablero manualmente \n' '3- Cargar tablero \n'))
                     if numero2 == 1:
                         '''MODO NORMAL - PATRON AL AZAR'''
-                        tamaño_del_tablero = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la matriz:'))
+                        fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
+                        columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
                         while True:
                             try:
-                                self.tablero = TableroCelular(tamaño_del_tablero)
+                                self.tablero = TableroCelular(fila,columna)
                                 cantidad_de_celulas = self.leer_entero(
                                     self.leer_teclado('Ingrese la cantidad de celulas vivas:'))
                                 self.tablero.rellenar_matriz_al_azar(cantidad_de_celulas)
@@ -62,8 +63,9 @@ class Menu(object):
                             raise Exception
                     elif numero2 == 2:
                         '''MODO NORMAL - CREAR MANUALMENTE'''
-                        tamaño_del_tablero = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la matriz:'))
-                        self.tablero = TableroCelular(tamaño_del_tablero)
+                        fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
+                        columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
+                        self.tablero = TableroCelular(fila,columna)
                         while True:
                             numero2_2_1 = self.leer_entero(
                                 self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego'))

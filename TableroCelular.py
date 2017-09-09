@@ -2,22 +2,21 @@ import random
 
 class TableroCelular(object):
 
-    def __init__(self,numero_columnas_filas):
-        self.matriz = self.matriz_nueva(numero_columnas_filas)
-        self.numero_columnas_filas = numero_columnas_filas
+    def __init__(self,numero_filas,numero_columnas):
+        self.matriz = self.matriz_nueva(numero_filas,numero_columnas)
 
-    def matriz_nueva(self,numero_columnas_filas):
+    def matriz_nueva(self,numero_filas,numero_columnas):
         matriz_nueva = []
-        for i in range(numero_columnas_filas):
-            matriz_nueva.append(['-'] * numero_columnas_filas)
+        for i in range(numero_filas):
+            matriz_nueva.append(['-'] * numero_columnas)
         return matriz_nueva
 
     def rellenar_matriz_al_azar(self,numero_de_celdas_vivas):
         combinaciones = []
 
-        if(numero_de_celdas_vivas <= len(self.matriz)*len(self.matriz)):
+        if(numero_de_celdas_vivas <= len(self.matriz)*len(self.matriz[0])):
             for fila in range(len(self.matriz)):
-                for columna in range(len(self.matriz)):
+                for columna in range(len(self.matriz[0])):
                     combinaciones.append((fila,columna))
             random.shuffle(combinaciones)
             for i in range(numero_de_celdas_vivas):
@@ -28,26 +27,12 @@ class TableroCelular(object):
 
 
     def rellenar_matriz_manualmente(self,fila,columna,valor_de_matriz):
-        if(fila > self.numero_columnas_filas or columna > self.numero_columnas_filas):
+        if(fila > len(self.matriz) or columna > len(self.matriz[0])):
             raise IndexError
         elif(valor_de_matriz != '-' or valor_de_matriz != '*'):
             raise Exception('Ingresar - o * en el valor_de_la_matriz') #cambiar error
         else:
             self.matriz[fila][columna] = valor_de_matriz
-
-    def proxima_generacion(self, cantidad_de_generaciones):
-
-        for x in range(cantidad_de_generaciones):
-            for j in range(self.__filas):
-                for k in range(self.__columnas):
-                    celdas_vecinas_vivas = self.num_vecinos_vivos(j, k)
-                    if celdas_vecinas_vivas == 3:
-                        self.__tablero[j][k] = '*'
-                    elif celdas_vecinas_vivas < 2 or celdas_vecinas_vivas > 3:
-                        self.__tablero[j][k] = '-'
-
-            print('\n')
-            self.get_tablero()
 
     def imprimir_tablero(self):
         for f in self.matriz:
@@ -63,8 +48,9 @@ class TableroCelular(object):
         return celdas_vivas_alrededor
 
     def mutar_celulas(self):
-        matriz_actualizada = self.matriz_nueva(len(self.matriz))
-        for x, y in self.matriz:
+        pass
+        '''matriz_actualizada = self.matriz_nueva(len(self.matriz))
+        for x, y in self.matriz:'''
 
 
 
