@@ -36,6 +36,20 @@ class TableroCelular(object):
         else:
             self.matriz[fila][columna] = valor_de_matriz
 
+    def proxima_generacion(self, cantidad_de_generaciones):
+
+        for x in range(cantidad_de_generaciones):
+            for j in range(self.__filas):
+                for k in range(self.__columnas):
+                    celdas_vecinas_vivas = self.num_vecinos_vivos(j, k)
+                    if celdas_vecinas_vivas == 3:
+                        self.__tablero[j][k] = '*'
+                    elif celdas_vecinas_vivas < 2 or celdas_vecinas_vivas > 3:
+                        self.__tablero[j][k] = '-'
+
+            print('\n')
+            self.get_tablero()
+
     def imprimir_tablero(self):
         for f in self.matriz:
             print(str(f))
