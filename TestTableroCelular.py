@@ -21,13 +21,20 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.rellenar_matriz_al_azar(4)
         print(self.tablero.matriz)
 
-
+    def test_cantidad_de_vecinos_vios(self):
+        self.tablero.rellenar_matriz_manualmente(0,0,'*')
+        self.tablero.rellenar_matriz_manualmente(0, 1, '*')
+        self.tablero.rellenar_matriz_manualmente(1, 0, '*')
+        self.tablero.imprimir_tablero()
+        self.assertEquals(self.tablero.cantidad_de_vecinos(0,0),2)
 
     def test_celula_mutan(self):
         print('Tablero antes')
-        print(self.tablero.matriz)
+        self.tablero.rellenar_matriz_al_azar(8)
+        self.tablero.imprimir_tablero()
         print('Tablero mutado')
-        print(self.tablero.mutar_celulas())
+        self.tablero.mutar_celulas()
+        self.tablero.imprimir_tablero()
 
 
 
