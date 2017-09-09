@@ -21,7 +21,6 @@ class Persistencia(object):
         modulo_a_cargar = shelve.open(ruta)
 
         if modulo_a_cargar[clave] != None:
-
             tablero_celular = modulo_a_cargar[clave]
             print("------" + "tablero cargado con exito" + "-------" )
             return tablero_celular
