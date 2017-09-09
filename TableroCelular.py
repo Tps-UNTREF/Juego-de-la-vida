@@ -36,12 +36,7 @@ class TableroCelular(object):
         else:
             self.matriz[fila][columna] = valor_de_matriz
 
-
-
-
-
-
-
-
-
+    def imprimir_tablero(self):
+        for f in self.matriz:
+            print(str(f))
 
