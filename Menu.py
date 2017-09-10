@@ -100,8 +100,14 @@ class Menu(object):
                             elif(tipo_de_modo == 2):
                                 pass #MOOOOODOOOOO VIDAAAA ESTATICAAAAAAAAAAAA
                             break
-                        except Exception:
-                            print('o fallo la ruta o fallo la clave saludos...')
+                        except FileNotFoundError:
+                            print('Archivo no encontrado. Ingresar ruta valida.')
+                        except TypeError:
+                            print('Ingrese una posición de carga valida.')
+                        except KeyError:
+                            print('Ingresar una clave valida en un archivo correcto.')
+                        except PermissionError:
+                            print('Ingrese una ruta valida.')
                 else:
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
@@ -119,7 +125,7 @@ class Menu(object):
 
                 if numero_de_modo_normal == 1:
                     '''MODO NORMAL - SIGUIENTE PASO'''
-                    self.tablero.mutar_celulas()
+                    self.tablero.mutar_celulas_modo_normal()
 
                 elif numero_de_modo_normal == 2:
                     '''MODIFICAR TABLERO'''

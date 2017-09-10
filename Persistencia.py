@@ -24,5 +24,4 @@ class Persistencia(object):
             tablero_celular = modulo_a_cargar[clave]
             print("------" + "tablero cargado con exito" + "-------" )
             return tablero_celular
-        else:
-            raise Exception("-------" + "no existe tablero guardado en la clave" + " " + str(clave) + "--------")
+

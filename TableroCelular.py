@@ -4,6 +4,8 @@ class TableroCelular(object):
 
     def __init__(self, numero_filas, numero_columnas):
         self.matriz = self.matriz_nueva(numero_filas,numero_columnas)
+        self.matriz_antigua = []
+        self.contador_vidas_estaticas = 0
 
     def matriz_nueva(self, numero_filas, numero_columnas):
         matriz_nueva = []
@@ -34,6 +36,7 @@ class TableroCelular(object):
             raise Exception('Ingresar - o * en el valor_de_la_matriz') #cambiar error
         else:
             self.matriz[fila][columna] = valor_de_matriz
+            self.contador_vidas_estaticas = 0
 
     def imprimir_tablero(self):
         for f in self.matriz:
@@ -58,9 +61,26 @@ class TableroCelular(object):
                 else:
                     if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
                         matriz_actualizada[x][y] = '*'
+        self.matriz_antigua = self.matriz
         self.matriz = matriz_actualizada
+        self.vidas_estaticas()
 
+    def vidas_estaticas(self):
+        son_iguales = True
+        for x in range(len(self.matriz)):
+            for y in range(len(self.matriz[0])):
+                if self.matriz[x][y] != self.matriz_antigua[x][y]:
+                    son_iguales = False
+        if son_iguales:
+            self.contador_vidas_estaticas += 1
+        else:
+            self.contador_vidas_estaticas = 0
 
+    def mutar_celulas_modo_normal(self):
+        if self.contador_vidas_estaticas < 3:
+            self.mutar_celulas()
+        else:
+            print('GAME OVER: El tablero es vida estática.')
 
 
 
