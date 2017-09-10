@@ -19,10 +19,7 @@ class Persistencia(object):
     def cargar(self, ruta, clave):
         tablero_celular = None
         modulo_a_cargar = shelve.open(ruta)
-
         if modulo_a_cargar[clave] != None:
             tablero_celular = modulo_a_cargar[clave]
-            print("------" + "tablero cargado con exito" + "-------" )
+            print("------" + "tablero cargado con exito" + "-------")
             return tablero_celular
-        else:
-            raise Exception("-------" + "no existe tablero guardado en la clave" + " " + str(clave) + "--------")

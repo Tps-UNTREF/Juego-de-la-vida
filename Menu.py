@@ -12,7 +12,7 @@ class Menu(object):
                 numero1 = self.leer_entero(self.leer_teclado('Ingrese modo de juego: \n' '1- Modo normal \n'
                                                              '2- Modo vida estatica \n' '3- Salir \n'))
                 self.persistencia = Persistencia()
-                self.tablero = TableroCelular(0,0)
+                self.tablero = TableroCelular(0, 0)
 
                 if numero1 == 1:
                     '''MODO NORMAL'''
@@ -100,8 +100,13 @@ class Menu(object):
                             elif(tipo_de_modo == 2):
                                 pass #MOOOOODOOOOO VIDAAAA ESTATICAAAAAAAAAAAA
                             break
-                        except Exception:
-                            print('o fallo la ruta o fallo la clave saludos...')
+                        except FileNotFoundError:
+                            print("Archivo no encontrado, ingresar ruta valida")
+                        except TypeError:
+                            print("Ingrese una posicion de carga valida")
+                        except KeyError:
+                            print('Ingresar una clave valida')
+
                 else:
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:

@@ -4,7 +4,7 @@ from Persistencia import Persistencia
 from TableroCelular import TableroCelular
 
 
-class MyTestCase(unittest.TestCase):
+class TestPersistencia(unittest.TestCase):
     def setUp(self):
         self.tablero = TableroCelular(4)
         self.tablero.rellenar_matriz_al_azar(6)
