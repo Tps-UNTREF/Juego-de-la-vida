@@ -1,4 +1,5 @@
 from Excepciones.NumeroNoEstaEnMenu import NumeroNoEstaEnMenu
+from Excepciones.ValorCelularNoValido import ValorCelularNoValido
 from Persistencia import Persistencia
 from TableroCelular import TableroCelular
 
@@ -79,6 +80,8 @@ class Menu(object):
                             except IndexError:
                                 print('Ingrese fila o columna correcta entre 0 y ' + str(
                                     len(self.tablero.matriz) - 1))
+                            except ValorCelularNoValido:
+                                print('Ingresar - o * en el valor_de_la_matriz')
                         elif numero2_2_1 == 2:
                             if(tipo_de_modo == 1):
                                 self.modo_normal()

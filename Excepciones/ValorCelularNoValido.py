@@ -1,0 +1,2 @@
+class ValorCelularNoValido(Exception):
+    pass

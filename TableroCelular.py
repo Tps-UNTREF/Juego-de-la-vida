@@ -1,4 +1,5 @@
 import random
+from Excepciones.ValorCelularNoValido import ValorCelularNoValido
 
 class TableroCelular(object):
 
@@ -33,7 +34,7 @@ class TableroCelular(object):
         if(fila > len(self.matriz) or columna > len(self.matriz[0])):
             raise IndexError
         elif(valor_de_matriz != '-' and valor_de_matriz != '*'):
-            raise Exception('Ingresar - o * en el valor_de_la_matriz') #cambiar error
+            raise ValorCelularNoValido
         else:
             self.matriz[fila][columna] = valor_de_matriz
             self.contador_vidas_estaticas = 0
