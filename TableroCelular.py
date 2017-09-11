@@ -7,6 +7,7 @@ class TableroCelular(object):
         self.matriz = self.matriz_nueva(numero_filas,numero_columnas)
         self.matriz_antigua = []
         self.contador_vidas_estaticas = 0
+        self.diccionario_de_celdas = {}
 
     def matriz_nueva(self, numero_filas, numero_columnas):
         matriz_nueva = []
@@ -83,12 +84,36 @@ class TableroCelular(object):
         else:
             print('GAME OVER: El tablero es vida estática.')
 
+    def mutar_modo_vida_estatica(self):
+        if self.diccionario_de_celdas == {}:
+            for x in range(len(self.matriz)):
+                for y in range(len(self.matriz[x])):
+                    self.diccionario_de_celdas[(x, y)] = 0
+        self.mutar_celulas_no_estaticas()
+        for x in range(len(self.matriz)):
+            for y in range(len(self.matriz[0])):
+                if self.matriz[x][y] == self.matriz_antigua[x][y]:
+                    self.diccionario_de_celdas[(x, y)] = self.diccionario_de_celdas[(x, y)] + 1
+                    if self.diccionario_de_celdas[(x, y)] >= 3:
+                        print('La celda ' + str(self.matriz[x][y]) + ' en la fila ' + str(x) + ' y columna '
+                              + str(y) + ' es estática.')
+                else:
+                    self.diccionario_de_celdas[(x, y)] = 0
 
-
-
-
-
-
+    def mutar_celulas_no_estaticas(self):
+        matriz_actualizada = self.matriz_nueva(len(self.matriz), len(self.matriz[0]))
+        for x in range(len(self.matriz)):
+            for y in range(len(self.matriz[x])):
+                if self.diccionario_de_celdas[(x, y)] < 3:
+                    if self.matriz[x][y] == '-':
+                        if self.cantidad_de_vecinos(x, y) >= 3:
+                            matriz_actualizada[x][y] = '*'
+                    else:
+                        if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
+                            matriz_actualizada[x][y] = '*'
+        self.matriz_antigua = self.matriz
+        self.matriz = matriz_actualizada
+        self.vidas_estaticas()
 
 
 

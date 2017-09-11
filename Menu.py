@@ -56,7 +56,7 @@ class Menu(object):
                             if(tipo_de_modo == 1):
                                 self.modo_normal()
                             elif(tipo_de_modo == 2):
-                                pass #MOOOOODOOOOO VIDAAAA ESTATICAAAAAAAAAAAA
+                                self.modo_vida_estatica()
                             break
                         except IndexError:
                             print('La cantidad de celdas vivas tiene que ser hasta ' + str(
@@ -160,6 +160,52 @@ class Menu(object):
                             print('Fallo la ruta del teclado')
 
                 elif numero_de_modo_normal == 4:
+                    break
+                else:
+                    raise NumeroNoEstaEnMenu
+            except NumeroNoEstaEnMenu:
+                print('Por favor ingrese un numero entre el 1 y el 4')
+
+    def modo_vida_estatica(self):
+        while True:
+            try:
+                self.tablero.imprimir_tablero()
+                numero_de_modo_vida_estatica = self.leer_entero(
+                    self.leer_teclado('Ingrese una accion: \n' '1- Siguiente paso \n'
+                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver al menu \n'))
+
+                if numero_de_modo_vida_estatica == 1:
+                    '''MODO NORMAL - SIGUIENTE PASO'''
+                    self.tablero.mutar_modo_vida_estatica()
+
+                elif numero_de_modo_vida_estatica == 2:
+                    '''MODIFICAR TABLERO'''
+                    while True:
+                        try:
+                            fila = self.leer_entero(self.leer_teclado('Ingrese posicion de fila:'))
+                            columna = self.leer_entero(self.leer_teclado('Ingrese posicion de columna:'))
+                            valor = self.leer_teclado('Ingrese "*" o "-":')
+                            self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
+                            break
+                        except IndexError:
+                            print("Por favor ingrese un numero de fila y columna comprendido entre 0 y " + str(
+                                self.tablero.matriz))
+                        except Exception:
+                            print(Exception)
+
+                elif numero_de_modo_vida_estatica == 3:
+                    '''GUARDAR TABLERO'''
+                    while True:
+                        try:
+                            tablero = self.tablero.matriz
+                            ruta = self.leer_teclado('Ingrese la ruta del archivo:')
+                            clave = self.leer_teclado('Ingrese la clave para guardar el tablero:')
+                            self.persistencia.guardar(ruta, tablero, clave)
+                            break
+                        except Exception:
+                            print('Fallo la ruta del teclado')
+
+                elif numero_de_modo_vida_estatica == 4:
                     break
                 else:
                     raise NumeroNoEstaEnMenu

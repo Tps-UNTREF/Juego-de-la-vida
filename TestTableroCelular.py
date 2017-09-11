@@ -36,6 +36,23 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.mutar_celulas()
         self.tablero.imprimir_tablero()
 
+    def test_vida_estatica(self):
+        self.tablero = TableroCelular(3, 3)
+        self.tablero.rellenar_matriz_manualmente(0, 1, '*')
+        self.tablero.rellenar_matriz_manualmente(1, 1, '*')
+        self.tablero.rellenar_matriz_manualmente(2, 1, '*')
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+
+    def test_hola(self):
+        self.test_vida_estatica()
+
 
 
 if __name__ == '__main__':
