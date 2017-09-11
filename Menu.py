@@ -41,7 +41,7 @@ class Menu(object):
 
                 numero2 = self.leer_entero(
                     self.leer_teclado('Elija una opción para crear el tablero: \n' '1- Patron al azar \n'
-                                      '2- Crear tablero manualmente \n' '3- Cargar tablero \n'))
+                                      '2- Crear tablero manualmente \n' '3- Cargar tablero \n' '4- Volver al menu \n'))
 
                 if numero2 == 1:
                     '''MODO NORMAL - PATRON AL AZAR'''
@@ -111,6 +111,8 @@ class Menu(object):
                             print('Ingresar una clave valida en un archivo correcto.')
                         except PermissionError:
                             print('Ingrese una ruta valida.')
+                elif numero2 == 4:
+                    break
                 else:
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
@@ -124,7 +126,7 @@ class Menu(object):
                 self.tablero.imprimir_tablero()
                 numero_de_modo_normal = self.leer_entero(
                     self.leer_teclado('Ingrese una accion: \n' '1- Siguiente paso \n'
-                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver al menu \n'))
+                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver \n'))
 
                 if numero_de_modo_normal == 1:
                     '''MODO NORMAL - SIGUIENTE PASO'''
