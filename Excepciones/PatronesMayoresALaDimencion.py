@@ -1,0 +1,2 @@
+class PatronesMayoresALaDimencion(Exception):
+    pass

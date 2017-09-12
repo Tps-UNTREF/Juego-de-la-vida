@@ -3,7 +3,7 @@ from Excepciones.ValorCelularNoValido import ValorCelularNoValido
 from Persistencia import Persistencia
 from TableroCelular import TableroCelular
 from Extras.combination import combinations
-
+from Excepciones.PatronesMayoresALaDimencion import PatronesMayoresALaDimencion
 
 class Menu(object):
     def menu(self):
@@ -18,9 +18,13 @@ class Menu(object):
                     '''MODO NORMAL'''
                     self.creacion_de_tableros()
                 elif numero1 == 2:
-                    '''MODO VIDA ESTATICA'''
-                    self.modo_estatico()
-                    return self.menu()
+                    while True:
+                        try:
+                            '''MODO VIDA ESTATICA'''
+                            self.modo_estatico()
+                            return self.menu()
+                        except PatronesMayoresALaDimencion:
+                            print("Ingresar patron mas chico")
                 elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
                     break
@@ -28,8 +32,6 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except (NumeroNoEstaEnMenu, EOFError):
                 print('Por favor, ingrese un numero valido.')
-            except IndexError:
-                print('Ingresar cantidad de patrones menor o igual a la cantidad de celdas')
 
 
 
@@ -201,8 +203,7 @@ class Menu(object):
                     print("Se encontro este tablero estatico: ")
                     self.tablero.imprimir_tablero()
         else:
-            raise IndexError
-
+            raise PatronesMayoresALaDimencion
 
     def leer_teclado(self, texto):
         while True:
