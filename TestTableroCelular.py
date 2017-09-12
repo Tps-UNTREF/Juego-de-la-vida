@@ -21,8 +21,8 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.rellenar_matriz_al_azar(4)
         print(self.tablero.matriz)
 
-    def test_cantidad_de_vecinos_vios(self):
-        self.tablero.rellenar_matriz_manualmente(0,0,'*')
+    def test_cantidad_de_vecinos_vivos(self):
+        self.tablero.rellenar_matriz_manualmente(0, 0,'*')
         self.tablero.rellenar_matriz_manualmente(0, 1, '*')
         self.tablero.rellenar_matriz_manualmente(1, 0, '*')
         self.tablero.imprimir_tablero()
@@ -35,6 +35,23 @@ class TestTableroCelular(unittest.TestCase):
         print('Tablero mutado')
         self.tablero.mutar_celulas()
         self.tablero.imprimir_tablero()
+
+    def test_vida_estatica(self):
+        self.tablero = TableroCelular(3, 3)
+        self.tablero.rellenar_matriz_manualmente(0, 1, '*')
+        self.tablero.rellenar_matriz_manualmente(1, 1, '*')
+        self.tablero.rellenar_matriz_manualmente(2, 1, '*')
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+        self.tablero.mutar_modo_vida_estatica()
+        self.tablero.imprimir_tablero()
+
+    def test_hola(self):
+        self.test_vida_estatica()
 
 
 
