@@ -2,6 +2,7 @@ from Excepciones.NumeroNoEstaEnMenu import NumeroNoEstaEnMenu
 from Excepciones.ValorCelularNoValido import ValorCelularNoValido
 from Persistencia import Persistencia
 from TableroCelular import TableroCelular
+from Extras.combination import combinations
 
 class Menu(object):
 
@@ -19,7 +20,7 @@ class Menu(object):
                     self.creacion_de_tableros('modo_normal')
                 elif numero1 == 2:
                     '''MODO VIDA ESTATICA'''
-                    self.creacion_de_tableros('modo_estatico')
+                    self.vida_estatica_mode()
 
                 elif numero1 ==3:
                     print('El Programa se cerro correctamente!')
@@ -178,6 +179,38 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
                 print('Por favor ingrese un numero entre el 1 y el 4')
+
+    def vida_estatica_mode(self):
+        fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
+        columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
+        patrones = self.leer_entero(self.leer_teclado('Cantidad de patrones vivos'))
+
+        self.tablero = TableroCelular(fila, columna)
+
+        dimencion_de_tablero = fila * columna
+
+        lista_tuplas = []
+
+        if (patrones <= dimencion_de_tablero ):
+            for x in combinations(range(dimencion_de_tablero), patrones):
+                print("En estas combinaciones" + " " + str(x))
+                self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
+                for posicion_tupla in x: # este for rellena los vivos con las combinaciones
+                    coordenadas = (posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
+                    self.tablero.rellenar_matriz_manualmente(coordenadas[0], coordenadas[1], '*')
+
+                while self.tablero.contador_vidas_estaticas >= 3:
+                    self.tablero.mutar_modo_vida_estatica()
+
+                print("Se encontro este tablero estatico :")
+                self.tablero.imprimir_tablero()
+
+
+
+
+
+
+
 
 
 
