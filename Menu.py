@@ -7,8 +7,8 @@ class Menu(object):
 
 
     def menu(self):
-        try:
-            while True:
+        while True:
+            try:
                 numero1 = self.leer_entero(self.leer_teclado('Ingrese modo de juego: \n' '1- Modo normal \n'
                                                              '2- Modo vida estatica \n' '3- Salir \n'))
                 self.persistencia = Persistencia()
@@ -28,9 +28,8 @@ class Menu(object):
                 else:
                     raise NumeroNoEstaEnMenu
 
-        except NumeroNoEstaEnMenu:
-            print('Por favor, ingrese un numero valido.')
-            return self.menu()
+            except (NumeroNoEstaEnMenu, EOFError):
+                print('Por favor, ingrese un numero valido.')
 
 
 
@@ -152,6 +151,8 @@ class Menu(object):
                             columna = self.leer_entero(self.leer_teclado('Ingrese posicion de columna:'))
                             valor = self.leer_teclado('Ingrese "*" o "-":')
                             self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
+                            if modo_de_juego == 'modo_estatico':
+                                self.tablero.diccionario_de_celdas[(fila, columna)] = 0
                             break
                         except IndexError:
                             print("Por favor ingrese un numero de fila comprendido entre 0 y " + str(len(self.tablero.matriz)) + "y columna comprendido entre 0 y " + str(
@@ -188,7 +189,7 @@ class Menu(object):
                     return None
                 else:
                     return ingresado
-            except (EOFError, KeyboardInterrupt,NameError):
+            except (EOFError, KeyboardInterrupt,NameError, SyntaxError):
                 return None
 
     def leer_entero(self, entrada):
