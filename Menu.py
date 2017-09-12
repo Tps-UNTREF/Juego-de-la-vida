@@ -19,7 +19,7 @@ class Menu(object):
                     self.creacion_de_tableros()
                 elif numero1 == 2:
                     '''MODO VIDA ESTATICA'''
-                    self.vida_estatica_mode()
+                    self.modo_estatico()
                     return self.menu()
                 elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
@@ -161,7 +161,7 @@ class Menu(object):
             except NumeroNoEstaEnMenu:
                 print('Por favor ingrese un numero entre el 1 y el 4')
 
-    def vida_estatica_mode(self):
+    def modo_estatico(self):
         fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
         columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
         patrones = self.leer_entero(self.leer_teclado('Cantidad de patrones vivos:'))
