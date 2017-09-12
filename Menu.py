@@ -24,12 +24,14 @@ class Menu(object):
                 elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
                     break
-
                 else:
                     raise NumeroNoEstaEnMenu
-
             except (NumeroNoEstaEnMenu, EOFError):
                 print('Por favor, ingrese un numero valido.')
+            except IndexError:
+                print('Ingresar cantidad de patrones menor o igual a la cantidad de celdas')
+
+
 
     def creacion_de_tableros(self):
         while True:
@@ -198,6 +200,9 @@ class Menu(object):
                 else:
                     print("Se encontro este tablero estatico: ")
                     self.tablero.imprimir_tablero()
+        else:
+            raise IndexError
+
 
     def leer_teclado(self, texto):
         while True:

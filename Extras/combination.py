@@ -28,8 +28,10 @@ def combinations(iterable, r):
 # since it is a generator, you have to explicitly iterate
 # through all combinations
 if __name__ == '__main__' :
-	cantidad=0
-	for x in combinations(range(10), 5):
+
+	cantidad = 0
+
+	for x in combinations(range(16), 4):
 	    cantidad+=1
 	    print (x)
 	print("\nCantidad total de combinaciones: ",cantidad)
