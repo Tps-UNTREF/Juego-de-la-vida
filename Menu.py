@@ -4,16 +4,15 @@ from Persistencia import Persistencia
 from TableroCelular import TableroCelular
 from Extras.combination import combinations
 
+
 class Menu(object):
-
-
     def menu(self):
         while True:
             try:
                 numero1 = self.leer_entero(self.leer_teclado('Ingrese modo de juego: \n' '1- Modo normal \n'
                                                              '2- Modo vida estatica \n' '3- Salir \n'))
                 self.persistencia = Persistencia()
-                self.tablero = TableroCelular(0,0)
+                self.tablero = TableroCelular(0, 0)
 
                 if numero1 == 1:
                     '''MODO NORMAL'''
@@ -21,8 +20,8 @@ class Menu(object):
                 elif numero1 == 2:
                     '''MODO VIDA ESTATICA'''
                     self.vida_estatica_mode()
-
-                elif numero1 ==3:
+                    return self.menu()
+                elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
                     break
 
@@ -31,8 +30,6 @@ class Menu(object):
 
             except (NumeroNoEstaEnMenu, EOFError):
                 print('Por favor, ingrese un numero valido.')
-
-
 
     def creacion_de_tableros(self):
         while True:
@@ -53,7 +50,7 @@ class Menu(object):
                                 self.leer_teclado('Ingrese la cantidad de celulas vivas:'))
                             self.tablero.rellenar_matriz_al_azar(cantidad_de_celulas)
 
-                            #MODO
+                            # MODO
 
                             self.modo_normal()
 
@@ -83,7 +80,7 @@ class Menu(object):
                             except ValorCelularNoValido:
                                 print('Ingresar - o * en el valor_de_la_matriz')
 
-                       #MODO
+                                # MODO
 
                         elif numero2_2_1 == 2:
                             self.modo_normal()
@@ -99,7 +96,7 @@ class Menu(object):
                             clave = self.leer_teclado('Ingrese posicion de guardado: ')
                             self.tablero.matriz = self.persistencia.cargar(direccion, clave)
 
-                            #MODO
+                            # MODO
 
                             self.modo_normal()
                             break
@@ -117,8 +114,6 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
                 print('Por favor, ingrese un numero valido.')
-
-
 
     def modo_normal(self):
         while True:
@@ -141,7 +136,8 @@ class Menu(object):
                             self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
                             break
                         except IndexError:
-                            print("Por favor ingrese un numero de fila comprendido entre 0 y " + str(len(self.tablero.matriz)) + "y columna comprendido entre 0 y " + str(
+                            print("Por favor ingrese un numero de fila comprendido entre 0 y " + str(
+                                len(self.tablero.matriz)) + "y columna comprendido entre 0 y " + str(
                                 len(self.tablero.matriz[0])))
                         except Exception:
                             print(Exception)
@@ -168,7 +164,7 @@ class Menu(object):
     def vida_estatica_mode(self):
         fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
         columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
-        patrones = self.leer_entero(self.leer_teclado('Cantidad de patrones vivos'))
+        patrones = self.leer_entero(self.leer_teclado('Cantidad de patrones vivos:'))
 
         self.tablero = TableroCelular(fila, columna)
 
@@ -176,28 +172,32 @@ class Menu(object):
 
         lista_tuplas = []
 
-        if (patrones <= dimencion_de_tablero ):
+        if (patrones <= dimencion_de_tablero):
             for x in combinations(range(dimencion_de_tablero), patrones):
+                print(' ')
                 print("En estas combinaciones" + " " + str(x))
                 self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
-                for posicion_tupla in x: # este for rellena los vivos con las combinaciones
-                    coordenadas = (posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
+                self.tablero.contador_vidas_estaticas = 0
+                self.tablero.diccionario_de_celdas = {}
+                encontro = True
+                contador = 0
+                for posicion_tupla in x:  # este for rellena los vivos con las combinaciones
+                    coordenadas = (
+                    posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
                     self.tablero.rellenar_matriz_manualmente(coordenadas[0], coordenadas[1], '*')
 
-                while self.tablero.contador_vidas_estaticas >= 3:
-                    self.tablero.mutar_modo_vida_estatica()
+                while self.tablero.contador_vidas_estaticas < 3:  # LO QUE HACE ESTO ES MUTAR HASTA QUE QUEDE ESTATICO!!!
+                    self.tablero.mutar_y_consultar_estaticas()
+                    contador += 1
+                    if contador > 30:
+                        encontro = False
+                        break
 
-                print("Se encontro este tablero estatico :")
-                self.tablero.imprimir_tablero()
-
-
-
-
-
-
-
-
-
+                if (not encontro):
+                    print('No se encontro patron de vida estatica!')
+                else:
+                    print("Se encontro este tablero estatico: ")
+                    self.tablero.imprimir_tablero()
 
     def leer_teclado(self, texto):
         while True:
@@ -207,7 +207,7 @@ class Menu(object):
                     return None
                 else:
                     return ingresado
-            except (EOFError, KeyboardInterrupt,NameError, SyntaxError):
+            except (EOFError, KeyboardInterrupt, NameError, SyntaxError):
                 return None
 
     def leer_entero(self, entrada):
@@ -220,7 +220,6 @@ class Menu(object):
             except Exception:
                 print('Por favor ingrese un numero entero')
                 break
-
 
 
 if __name__ == '__main__':
