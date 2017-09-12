@@ -21,8 +21,8 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.rellenar_matriz_al_azar(4)
         print(self.tablero.matriz)
 
-    def test_cantidad_de_vecinos_vios(self):
-        self.tablero.rellenar_matriz_manualmente(0,0,'*')
+    def test_cantidad_de_vecinos_vivos(self):
+        self.tablero.rellenar_matriz_manualmente(0, 0,'*')
         self.tablero.rellenar_matriz_manualmente(0, 1, '*')
         self.tablero.rellenar_matriz_manualmente(1, 0, '*')
         self.tablero.imprimir_tablero()

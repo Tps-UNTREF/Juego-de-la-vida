@@ -6,7 +6,6 @@ from TableroCelular import TableroCelular
 class Menu(object):
 
 
-
     def menu(self):
         try:
             while True:
@@ -53,6 +52,9 @@ class Menu(object):
                             cantidad_de_celulas = self.leer_entero(
                                 self.leer_teclado('Ingrese la cantidad de celulas vivas:'))
                             self.tablero.rellenar_matriz_al_azar(cantidad_de_celulas)
+
+                            #SELECCIONADOR DE MODO
+
                             if(tipo_de_modo == 1):
                                 self.modo_normal()
                             elif(tipo_de_modo == 2):
@@ -82,11 +84,14 @@ class Menu(object):
                                     len(self.tablero.matriz) - 1))
                             except ValorCelularNoValido:
                                 print('Ingresar - o * en el valor_de_la_matriz')
+
+                       #SELECCIONADOR DE MODO
+
                         elif numero2_2_1 == 2:
                             if(tipo_de_modo == 1):
                                 self.modo_normal()
                             elif(tipo_de_modo == 2):
-                                pass #MOOOOODOOOOO VIDAAAA ESTATICAAAAAAAAAAAA
+                                self.modo_vida_estatica()
                             break
                         else:
                             raise NumeroNoEstaEnMenu
@@ -98,10 +103,13 @@ class Menu(object):
                             direccion = self.leer_teclado('Ingrese ruta del archivo: ')
                             clave = self.leer_teclado('Ingrese posicion de guardado: ')
                             self.tablero.matriz = self.persistencia.cargar(direccion, clave)
+
+                            # SELECCIONADOR DE MODO
+
                             if(tipo_de_modo == 1):
                                 self.modo_normal()
                             elif(tipo_de_modo == 2):
-                                pass #MOOOOODOOOOO VIDAAAA ESTATICAAAAAAAAAAAA
+                                self.modo_vida_estatica()
                             break
                         except FileNotFoundError:
                             print('Archivo no encontrado. Ingresar ruta valida.')
@@ -213,9 +221,6 @@ class Menu(object):
                 print('Por favor ingrese un numero entre el 1 y el 4')
 
 
-
-
-#ARREGLARRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     def leer_teclado(self, texto):
         while True:
