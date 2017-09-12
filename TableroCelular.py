@@ -85,69 +85,44 @@ class TableroCelular(object):
             print('GAME OVER: El tablero es vida estática.')
 
     def mutar_modo_vida_estatica(self):
-        if self.diccionario_de_celdas == {}:
+        if self.contador_vidas_estaticas < 3:
+            self.mutar_y_consultar_estaticas()
+        else:
+            print('GAME OVER: Todas las celulas están estáticas.')
+
+    def mutar_y_consultar_estaticas(self):
+        if self.diccionario_de_celdas == {}: # Si el diccionario esta vacio, lo crea con todos ceros
             for x in range(len(self.matriz)):
                 for y in range(len(self.matriz[x])):
                     self.diccionario_de_celdas[(x, y)] = 0
-        self.mutar_celulas_no_estaticas()
+
+        self.mutar_celulas_no_estaticas() # Llama al metodo para mutar
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz[0])):
-                if self.matriz[x][y] == self.matriz_antigua[x][y]:
+                if self.matriz[x][y] == self.matriz_antigua[x][y]: # Si no hubo cambios en una celda, suma el contador
                     self.diccionario_de_celdas[(x, y)] = self.diccionario_de_celdas[(x, y)] + 1
-                    if self.diccionario_de_celdas[(x, y)] >= 3:
+                    if self.diccionario_de_celdas[(x, y)] >= 3: # Si ya llego el contador a tres, es estatica y se imprime
                         print('La celda ' + str(self.matriz[x][y]) + ' en la fila ' + str(x) + ' y columna '
                               + str(y) + ' es estática.')
-                else:
+                elif self.matriz[x][y] != self.matriz_antigua[x][y]: # Si no es estatica y cambio, el contador vuelve a cero
                     self.diccionario_de_celdas[(x, y)] = 0
 
     def mutar_celulas_no_estaticas(self):
-        matriz_actualizada = self.matriz_nueva(len(self.matriz), len(self.matriz[0]))
+        matriz_actualizada = self.matriz_nueva(len(self.matriz), len(self.matriz[0])) # Crea matriz nueva a partir del tamaño de la original
+
         for x in range(len(self.matriz)):
-            for y in range(len(self.matriz[x])):
-                if self.diccionario_de_celdas[(x, y)] < 3:
-                    if self.matriz[x][y] == '-':
+            for y in range(len(self.matriz[x])): # Recorre el tablero
+
+                if self.diccionario_de_celdas[(x, y)] < 3: # Si la celula no es estatica, se fija si puede mutar
+                    if self.matriz[x][y] == '-': # Si esta muerta, se fija si puede vivir
                         if self.cantidad_de_vecinos(x, y) >= 3:
                             matriz_actualizada[x][y] = '*'
-                    else:
+                    else: # Si esta viva, se fija si sigue viva. De lo contrario se queda como muerta en la matriz actualizada
                         if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
                             matriz_actualizada[x][y] = '*'
+                else: # Si la celula es estatica, guarda la misma celda estatica en la nueva matriz
+                    matriz_actualizada[x][y] = self.matriz[x][y]
         self.matriz_antigua = self.matriz
         self.matriz = matriz_actualizada
         self.vidas_estaticas()
-
-    def mutar_modo_vida_estatica(self):
-        if self.diccionario_de_celdas == {}:
-            for x in range(len(self.matriz)):
-                for y in range(len(self.matriz[x])):
-                    self.diccionario_de_celdas[(x, y)] = 0
-        self.mutar_celulas_no_estaticas()
-        for x in range(len(self.matriz)):
-            for y in range(len(self.matriz[0])):
-                if self.matriz[x][y] == self.matriz_antigua[x][y]:
-                    self.diccionario_de_celdas[(x, y)] = self.diccionario_de_celdas.get((x, y)) + 1
-                    if self.diccionario_de_celdas.get((x, y)) >= 3:
-                        print('La celda ' + str(self.matriz[x][y]) + ' en la fila ' + str(x) + ' y columna '
-                              + str(y) + ' es estática.')
-                else:
-                    self.diccionario_de_celdas[(x, y)] = 0
-
-    def mutar_celulas_no_estaticas(self):
-        matriz_actualizada = self.matriz_nueva(len(self.matriz), len(self.matriz[0]))
-        for x in range(len(self.matriz)):
-            for y in range(len(self.matriz[x])):
-                if self.diccionario_de_celdas.get((x, y)) < 3:
-                    if self.matriz[x][y] == '-':
-                        if self.cantidad_de_vecinos(x, y) >= 3:
-                            matriz_actualizada[x][y] = '*'
-                    else:
-                        if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
-                            matriz_actualizada[x][y] = '*'
-        self.matriz_antigua = self.matriz
-        self.matriz = matriz_actualizada
-        self.vidas_estaticas()
-
-
-
-
-
 
