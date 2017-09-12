@@ -17,7 +17,7 @@ class Menu(object):
 
                 if numero1 == 1:
                     '''MODO NORMAL'''
-                    self.creacion_de_tableros('modo_normal')
+                    self.creacion_de_tableros()
                 elif numero1 == 2:
                     '''MODO VIDA ESTATICA'''
                     self.vida_estatica_mode()
@@ -34,7 +34,7 @@ class Menu(object):
 
 
 
-    def creacion_de_tableros(self,tipo_de_modo):
+    def creacion_de_tableros(self):
         while True:
             try:
 
@@ -53,12 +53,10 @@ class Menu(object):
                                 self.leer_teclado('Ingrese la cantidad de celulas vivas:'))
                             self.tablero.rellenar_matriz_al_azar(cantidad_de_celulas)
 
-                            #SELECCIONADOR DE MODO
+                            #MODO
 
-                            if(tipo_de_modo == 'modo_normal'):
-                                self.modos_de_juego('modo_normal')
-                            elif(tipo_de_modo == 'modo_estatico'):
-                                self.modos_de_juego('modo_estatico')
+                            self.modo_normal()
+
                             break
                         except IndexError:
                             print('La cantidad de celdas vivas tiene que ser hasta ' + str(
@@ -85,13 +83,10 @@ class Menu(object):
                             except ValorCelularNoValido:
                                 print('Ingresar - o * en el valor_de_la_matriz')
 
-                       #SELECCIONADOR DE MODO
+                       #MODO
 
                         elif numero2_2_1 == 2:
-                            if(tipo_de_modo == 'modo_normal'):
-                                self.modos_de_juego('modo_normal')
-                            elif(tipo_de_modo == 'modo_estatico'):
-                                self.modos_de_juego('modo_estatico')
+                            self.modo_normal()
                             break
                         else:
                             raise NumeroNoEstaEnMenu
@@ -104,12 +99,9 @@ class Menu(object):
                             clave = self.leer_teclado('Ingrese posicion de guardado: ')
                             self.tablero.matriz = self.persistencia.cargar(direccion, clave)
 
-                            # SELECCIONADOR DE MODO
+                            #MODO
 
-                            if(tipo_de_modo == 'modo_normal'):
-                                self.modos_de_juego('modo_normal')
-                            elif(tipo_de_modo == 'modo_estatico'):
-                                self.modos_de_juego('modo_estatico')
+                            self.modo_normal()
                             break
                         except FileNotFoundError:
                             print('Archivo no encontrado. Ingresar ruta valida.')
@@ -128,7 +120,7 @@ class Menu(object):
 
 
 
-    def modos_de_juego(self,modo_de_juego):
+    def modo_normal(self):
         while True:
             try:
                 self.tablero.imprimir_tablero()
@@ -137,13 +129,8 @@ class Menu(object):
                                       '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver \n'))
 
                 if numero_de_modo_normal == 1:
-                    if modo_de_juego == 'modo_normal':
-                        '''MODO NORMAL - SIGUIENTE PASO'''
-                        self.tablero.mutar_celulas_modo_normal()
-                    elif modo_de_juego == 'modo_estatico':
-                        '''MODO ESTATICO - SIGUIENTE PASO'''
-                        self.tablero.mutar_modo_vida_estatica()
-
+                    '''MODO NORMAL - SIGUIENTE PASO'''
+                    self.tablero.mutar_celulas_modo_normal()
                 elif numero_de_modo_normal == 2:
                     '''MODIFICAR TABLERO'''
                     while True:
@@ -152,8 +139,6 @@ class Menu(object):
                             columna = self.leer_entero(self.leer_teclado('Ingrese posicion de columna:'))
                             valor = self.leer_teclado('Ingrese "*" o "-":')
                             self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
-                            if modo_de_juego == 'modo_estatico':
-                                self.tablero.diccionario_de_celdas[(fila, columna)] = 0
                             break
                         except IndexError:
                             print("Por favor ingrese un numero de fila comprendido entre 0 y " + str(len(self.tablero.matriz)) + "y columna comprendido entre 0 y " + str(

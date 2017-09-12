@@ -51,7 +51,9 @@ class TestTableroCelular(unittest.TestCase):
         self.tablero.imprimir_tablero()
 
     def test_hola(self):
-        self.test_vida_estatica()
+        self.tablero = TableroCelular(3,3)
+        self.tablero.rellenar_matriz_manualmente(1,0,'*')
+        print(self.tablero.matriz[3])
 
 
 
