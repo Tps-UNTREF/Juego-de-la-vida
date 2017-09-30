@@ -57,7 +57,7 @@ class TableroCelular(object):
         for x in range(len(self.matriz)):
             for y in range(len(self.matriz[x])):
                 if (self.matriz[x][y] == '-'):
-                    if (self.cantidad_de_vecinos(x, y) >= 3):
+                    if (self.cantidad_de_vecinos(x, y) == 3):
                         matriz_actualizada[x][y] = '*'
                 else:
                     if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
@@ -113,7 +113,7 @@ class TableroCelular(object):
 
                 if self.diccionario_de_celdas[(x, y)] < 3:  # Si la celula no es estatica, se fija si puede mutar
                     if self.matriz[x][y] == '-':  # Si esta muerta, se fija si puede vivir
-                        if self.cantidad_de_vecinos(x, y) >= 3:
+                        if self.cantidad_de_vecinos(x, y) == 3:
                             matriz_actualizada[x][y] = '*'
                     else:  # Si esta viva, se fija si sigue viva. De lo contrario se queda como muerta en la matriz actualizada
                         if self.cantidad_de_vecinos(x, y) == 2 or self.cantidad_de_vecinos(x, y) == 3:
