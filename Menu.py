@@ -71,7 +71,7 @@ class Menu(object):
                     while True:
                         '''COMENZAR JUEGO'''
                         numero2_2_1 = self.leer_entero(
-                            self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego'))
+                            self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego \n'))
                         if numero2_2_1 == 1:
                             try:
                                 fila = self.leer_entero(self.leer_teclado('Ingrese fila: '))
