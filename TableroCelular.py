@@ -37,10 +37,11 @@ class TableroCelular(object):
         else:
             self.matriz[fila][columna] = valor_de_matriz
             self.contador_vidas_estaticas = 0
+            print('Se modifico correctamente la fila:' + str(fila) + ' columna:' + str(columna) + ' al valor ' + valor_de_matriz)
 
     def imprimir_tablero(self):
         for f in self.matriz:
-            print(str(f))
+            print(' '.join(f))
 
     def cantidad_de_vecinos(self, fila, columna):
         distancia_de_celdas = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
