@@ -30,7 +30,7 @@ class Menu(object):
                     break
                 else:
                     raise NumeroNoEstaEnMenu
-            except (NumeroNoEstaEnMenu, EOFError, KeyboardInterrupt):
+            except (NumeroNoEstaEnMenu):
                 print('Por favor, ingrese un numero del 1 al 3.')
                 
 
@@ -116,7 +116,7 @@ class Menu(object):
                 else:
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
-                print('Por favor, ingrese un numero valido.')
+                print('Por favor, ingrese un numero del 1 al 4.')
 
     def modo_normal(self):
         while True:
@@ -161,7 +161,7 @@ class Menu(object):
                 else:
                     raise NumeroNoEstaEnMenu
             except NumeroNoEstaEnMenu:
-                print('Por favor ingrese un numero entre el 1 y el 4')
+                print('Por favor ingrese un numero del 1 al 4')
 
     def modo_estatico(self):
         fila = self.leer_entero('Ingrese el tamaño de la fila de la matriz:')
@@ -209,7 +209,7 @@ class Menu(object):
                 ingresado = str(input(texto))
                 break
             except (EOFError, KeyboardInterrupt):
-                print('No cortes el codigo!')
+                print('Error atrapado de Ctrl-C')
         return ingresado
 
     def leer_entero(self,texto):
@@ -222,6 +222,8 @@ class Menu(object):
                     raise Exception
             except (Exception,ValueError):
                 print('Por favor ingrese un numero entero')
+            except (EOFError, KeyboardInterrupt):
+                print('Error atrapado de Ctrl-C')
 
 
 
