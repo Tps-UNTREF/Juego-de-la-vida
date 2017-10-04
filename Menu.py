@@ -32,7 +32,6 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except (NumeroNoEstaEnMenu, EOFError):
                 print('Por favor, ingrese un numero valido.')
-                
 
 
 
@@ -181,36 +180,32 @@ class Menu(object):
         if (patrones <= dimencion_de_tablero):
             for x in combinations(range(dimencion_de_tablero), patrones):
                 print(' ')
-                print("En estas combinaciones" + " " + str(x))
                 self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
                 self.tablero.contador_vidas_estaticas = 0
                 self.tablero.diccionario_de_celdas = {}
                 encontro = True
                 contador = 0
                 for posicion_tupla in x:  # este for rellena los vivos con las combinaciones
-                    coordenadas = (
-                    posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
+                    coordenadas = (posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
                     self.tablero.rellenar_matriz_manualmente(coordenadas[0], coordenadas[1], '*')
 
-                while self.tablero.contador_vidas_estaticas < 3:  # LO QUE HACE ESTO ES MUTAR HASTA QUE QUEDE ESTATICO!!!
-                    self.tablero.mutar_y_consultar_estaticas()
-                    contador += 1
-                    if contador > 30:
-                        encontro = False
-                        break
+                self.tablero.mutar_celulas()
 
-                if (not encontro):
-                    print('No se encontro patron de vida estatica!')
-                else:
+                if self.tablero.matriz_antigua == self.tablero.matriz:
+                    print("En estas combinaciones" + " " + str(x))
                     print("Se encontro este tablero estatico: ")
                     self.tablero.imprimir_tablero()
+                else:
+                    print("En estas combinaciones" + " " + str(x))
+                    print("No se encontro tablero estatico")
+
         else:
             raise PatronesMayoresALaDimencion
 
     def leer_teclado(self, texto):
         while True:
             try:
-                ingresado = input(texto)
+                ingresado = eval(input(texto))
                 return ingresado
             except (EOFError, KeyboardInterrupt, NameError, SyntaxError):
                 return None

@@ -37,7 +37,6 @@ class TableroCelular(object):
         else:
             self.matriz[fila][columna] = valor_de_matriz
             self.contador_vidas_estaticas = 0
-            print('Se modifico correctamente la fila:' + str(fila) + ' columna:' + str(columna) + ' al valor ' + valor_de_matriz)
 
     def imprimir_tablero(self):
         for f in self.matriz:
@@ -47,9 +46,8 @@ class TableroCelular(object):
         distancia_de_celdas = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         celdas_vivas_alrededor = 0
         for x, y in distancia_de_celdas:
-            if (fila + x >= 0 and fila + x < len(self.matriz) and (columna + y >= 0 and columna + y < len(
-                    self.matriz[0]))):  # Verifica que este dentro del tablero
-                if (self.matriz[fila + x][columna + y] == '*'):
+            if fila + x >= 0 and fila + x < len(self.matriz) and columna + y >= 0 and columna + y < len(self.matriz[0]): # Verifica que este dentro del tablero
+                if self.matriz[fila + x][columna + y] == '*':
                     celdas_vivas_alrededor += 1
         return celdas_vivas_alrededor
 
