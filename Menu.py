@@ -71,12 +71,13 @@ class Menu(object):
                     while True:
                         '''COMENZAR JUEGO'''
                         numero2_2_1 = self.leer_entero(
-                            self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego'))
+                            self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego \n'))
                         if numero2_2_1 == 1:
                             try:
                                 fila = self.leer_entero(self.leer_teclado('Ingrese fila: '))
                                 columna = self.leer_entero(self.leer_teclado('Ingrese columna: '))
-                                estado = self.leer_teclado('Ingrese estado (* viva o - muerta): ')
+                                estado = str(input('Ingrese estado "*" viva o "-" muerta (Sin comillas): '))
+                                print(estado)
                                 self.tablero.rellenar_matriz_manualmente(fila, columna, estado)
                             except IndexError:
                                 print('Ingrese fila o columna correcta entre 0 y ' + str(
@@ -136,7 +137,7 @@ class Menu(object):
                         try:
                             fila = self.leer_entero(self.leer_teclado('Ingrese posicion de fila:'))
                             columna = self.leer_entero(self.leer_teclado('Ingrese posicion de columna:'))
-                            valor = self.leer_teclado('Ingrese "*" o "-":')
+                            valor = str(input('Ingrese "*" o "-"(Sin comillas):'))
                             self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
                             break
                         except IndexError:
