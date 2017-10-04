@@ -32,6 +32,7 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except (NumeroNoEstaEnMenu, EOFError):
                 print('Por favor, ingrese un numero valido.')
+                
 
 
 
