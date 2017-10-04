@@ -96,8 +96,8 @@ class Menu(object):
                     '''MODO NORMAL - CARGAR'''
                     while True:
                         try:
-                            direccion = self.leer_teclado('Ingrese ruta del archivo: ')
-                            clave = self.leer_teclado('Ingrese posicion de guardado: ')
+                            direccion = str(input('Ingrese ruta del archivo sin comillas: '))
+                            clave = str(input('Ingrese posicion de guardado sin comillas: '))
                             self.tablero.matriz = self.persistencia.cargar(direccion, clave)
 
                             # MODO
@@ -151,8 +151,8 @@ class Menu(object):
                     while True:
                         try:
                             tablero = self.tablero.matriz
-                            ruta = self.leer_teclado('Ingrese la ruta del archivo:')
-                            clave = self.leer_teclado('Ingrese la clave para guardar el tablero:')
+                            ruta = str(input('Ingrese la ruta del archivo sin comillas:'))
+                            clave = str(input('Ingrese la clave para guardar el tablero sin comillas:'))
                             self.persistencia.guardar(ruta, tablero, clave)
                             break
                         except Exception:
@@ -208,11 +208,8 @@ class Menu(object):
     def leer_teclado(self, texto):
         while True:
             try:
-                ingresado = eval(input(texto))
-                if (ingresado == ''):
-                    return None
-                else:
-                    return ingresado
+                ingresado = input(texto)
+                return ingresado
             except (EOFError, KeyboardInterrupt, NameError, SyntaxError):
                 return None
 
@@ -226,7 +223,6 @@ class Menu(object):
             except Exception:
                 print('Por favor ingrese un numero entero')
                 break
-
 
 if __name__ == '__main__':
     Menu().menu()

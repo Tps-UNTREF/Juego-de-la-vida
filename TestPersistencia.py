@@ -14,7 +14,7 @@ class TestPersistencia(unittest.TestCase):
 
     def test_guardado(self):
         print('TEST-GUARDADO-1')
-        self.persistencia.guardar('tablero.s', self.tablero.matriz, 'tablero1')
+        self.persistencia.guardar('C:\\Users\\mattb\\Desktop\\juego.s', self.tablero.matriz, 'tablero1')
 
     def test_guardado2(self):
         print('TEST-GUARDADO-2')
