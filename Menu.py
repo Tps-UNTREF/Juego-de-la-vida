@@ -9,8 +9,8 @@ class Menu(object):
     def menu(self):
         while True:
             try:
-                numero1 = self.leer_entero(self.leer_teclado('Ingrese modo de juego: \n' '1- Modo normal \n'
-                                                             '2- Modo vida estatica \n' '3- Salir \n'))
+                numero1 = self.leer_entero('Ingrese modo de juego: \n' '1- Modo normal \n'
+                                                             '2- Modo vida estatica \n' '3- Salir \n')
                 self.persistencia = Persistencia()
                 self.tablero = TableroCelular(0, 0)
 
@@ -30,8 +30,8 @@ class Menu(object):
                     break
                 else:
                     raise NumeroNoEstaEnMenu
-            except (NumeroNoEstaEnMenu, EOFError):
-                print('Por favor, ingrese un numero valido.')
+            except (NumeroNoEstaEnMenu, EOFError, KeyboardInterrupt):
+                print('Por favor, ingrese un numero del 1 al 3.')
                 
 
 
@@ -40,19 +40,17 @@ class Menu(object):
         while True:
             try:
 
-                numero2 = self.leer_entero(
-                    self.leer_teclado('Elija una opción para crear el tablero: \n' '1- Patron al azar \n'
-                                      '2- Crear tablero manualmente \n' '3- Cargar tablero \n' '4- Volver al menu \n'))
+                numero2 = self.leer_entero('Elija una opción para crear el tablero: \n' '1- Patron al azar \n'
+                                      '2- Crear tablero manualmente \n' '3- Cargar tablero \n' '4- Volver al menu \n')
 
                 if numero2 == 1:
                     '''MODO NORMAL - PATRON AL AZAR'''
-                    fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
-                    columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
+                    fila = self.leer_entero('Ingrese el tamaño de la fila de la matriz:')
+                    columna = self.leer_entero('Ingrese el tamaño de la columna de la matriz:')
                     while True:
                         try:
                             self.tablero = TableroCelular(fila, columna)
-                            cantidad_de_celulas = self.leer_entero(
-                                self.leer_teclado('Ingrese la cantidad de celulas vivas:'))
+                            cantidad_de_celulas = self.leer_entero('Ingrese la cantidad de celulas vivas:')
                             self.tablero.rellenar_matriz_al_azar(cantidad_de_celulas)
 
                             # MODO
@@ -66,18 +64,17 @@ class Menu(object):
 
                 elif numero2 == 2:
                     '''MODO NORMAL - CREAR MANUALMENTE'''
-                    fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
-                    columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
+                    fila = self.leer_entero('Ingrese el tamaño de la fila de la matriz:')
+                    columna = self.leer_entero('Ingrese el tamaño de la columna de la matriz:')
                     self.tablero = TableroCelular(fila, columna)
                     while True:
                         '''COMENZAR JUEGO'''
-                        numero2_2_1 = self.leer_entero(
-                            self.leer_teclado('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego \n'))
+                        numero2_2_1 = self.leer_entero('Ingrese accion: \n' '1- Modificar celda \n' '2- Comenzar juego \n')
                         if numero2_2_1 == 1:
                             try:
-                                fila = self.leer_entero(self.leer_teclado('Ingrese fila: '))
-                                columna = self.leer_entero(self.leer_teclado('Ingrese columna: '))
-                                estado = str(input('Ingrese estado "*" viva o "-" muerta (Sin comillas): '))
+                                fila = self.leer_entero('Ingrese fila: ')
+                                columna = self.leer_entero('Ingrese columna: ')
+                                estado = self.leer_teclado('Ingrese estado "*" viva o "-" muerta (Sin comillas): ')
                                 print(estado)
                                 self.tablero.rellenar_matriz_manualmente(fila, columna, estado)
                             except IndexError:
@@ -98,8 +95,8 @@ class Menu(object):
                     '''MODO NORMAL - CARGAR'''
                     while True:
                         try:
-                            direccion = str(input('Ingrese ruta del archivo sin comillas: '))
-                            clave = str(input('Ingrese posicion de guardado sin comillas: '))
+                            direccion = self.leer_teclado('Ingrese ruta del archivo sin comillas: ')
+                            clave = self.leer_teclado('Ingrese posicion de guardado sin comillas: ')
                             self.tablero.matriz = self.persistencia.cargar(direccion, clave)
 
                             # MODO
@@ -125,9 +122,8 @@ class Menu(object):
         while True:
             try:
                 self.tablero.imprimir_tablero()
-                numero_de_modo_normal = self.leer_entero(
-                    self.leer_teclado('Ingrese una accion: \n' '1- Siguiente paso \n'
-                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver \n'))
+                numero_de_modo_normal = self.leer_entero('Ingrese una accion: \n' '1- Siguiente paso \n'
+                                      '2- Modificar tablero \n' '3- Guardar tablero \n' '4- Volver \n')
 
                 if numero_de_modo_normal == 1:
                     '''MODO NORMAL - SIGUIENTE PASO'''
@@ -136,9 +132,9 @@ class Menu(object):
                     '''MODIFICAR TABLERO'''
                     while True:
                         try:
-                            fila = self.leer_entero(self.leer_teclado('Ingrese posicion de fila:'))
-                            columna = self.leer_entero(self.leer_teclado('Ingrese posicion de columna:'))
-                            valor = str(input('Ingrese "*" o "-"(Sin comillas):'))
+                            fila = self.leer_entero('Ingrese posicion de fila:')
+                            columna = self.leer_entero('Ingrese posicion de columna:')
+                            valor = self.leer_teclado('Ingrese "*" o "-"(Sin comillas):')
                             self.tablero.rellenar_matriz_manualmente(fila, columna, valor)
                             break
                         except IndexError:
@@ -153,8 +149,8 @@ class Menu(object):
                     while True:
                         try:
                             tablero = self.tablero.matriz
-                            ruta = str(input('Ingrese la ruta del archivo sin comillas:'))
-                            clave = str(input('Ingrese la clave para guardar el tablero sin comillas:'))
+                            ruta = self.leer_teclado('Ingrese la ruta del archivo sin comillas:')
+                            clave = self.leer_teclado('Ingrese la clave para guardar el tablero sin comillas:')
                             self.persistencia.guardar(ruta, tablero, clave)
                             break
                         except Exception:
@@ -168,9 +164,9 @@ class Menu(object):
                 print('Por favor ingrese un numero entre el 1 y el 4')
 
     def modo_estatico(self):
-        fila = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la fila de la matriz:'))
-        columna = self.leer_entero(self.leer_teclado('Ingrese el tamaño de la columna de la matriz:'))
-        patrones = self.leer_entero(self.leer_teclado('Cantidad de patrones vivos:'))
+        fila = self.leer_entero('Ingrese el tamaño de la fila de la matriz:')
+        columna = self.leer_entero('Ingrese el tamaño de la columna de la matriz:')
+        patrones = self.leer_entero('Cantidad de patrones vivos:')
 
         self.tablero = TableroCelular(fila, columna)
 
@@ -210,21 +206,24 @@ class Menu(object):
     def leer_teclado(self, texto):
         while True:
             try:
-                ingresado = input(texto)
-                return ingresado
-            except (EOFError, KeyboardInterrupt, NameError, SyntaxError):
-                return None
+                ingresado = str(input(texto))
+                break
+            except (EOFError, KeyboardInterrupt):
+                print('No cortes el codigo!')
+        return ingresado
 
-    def leer_entero(self, entrada):
+    def leer_entero(self,texto):
         while True:
             try:
-                if type(entrada) == int:
-                    return entrada
+                ingresado = eval(input(texto))
+                if type(ingresado) == int:
+                    return ingresado
                 else:
                     raise Exception
-            except Exception:
+            except (Exception,ValueError):
                 print('Por favor ingrese un numero entero')
-                break
+
+
 
 if __name__ == '__main__':
     Menu().menu()
