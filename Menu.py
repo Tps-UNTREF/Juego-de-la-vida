@@ -165,7 +165,7 @@ class Menu(object):
     def modo_estatico(self):
         fila = self.leer_entero('Ingrese el tamaño de la fila de la matriz:')
         columna = self.leer_entero('Ingrese el tamaño de la columna de la matriz:')
-        patrones = self.leer_entero('Cantidad de patrones vivos:')
+        patrones = self.leer_entero('Cantidad de celdas vivas:')
 
         self.tablero = TableroCelular(fila, columna)
 
@@ -173,9 +173,10 @@ class Menu(object):
 
         lista_tuplas = []
 
+        cantidad_tableros = 0
+
         if (patrones <= dimencion_de_tablero):
             for x in combinations(range(dimencion_de_tablero), patrones):
-                print(' ')
                 self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
                 self.tablero.contador_vidas_estaticas = 0
                 self.tablero.diccionario_de_celdas = {}
@@ -189,12 +190,15 @@ class Menu(object):
                 self.tablero.mutar_celulas()
 
                 if self.tablero.matriz_antigua == self.tablero.matriz:
-                    print("En estas combinaciones" + " " + str(x))
-                    print("Se encontro este tablero estatico: ")
                     self.tablero.imprimir_tablero()
-                else:
-                    print("En estas combinaciones" + " " + str(x))
-                    print("No se encontro tablero estatico")
+                    cantidad_tableros += 1
+                    print('--------------------------------------')
+
+            if cantidad_tableros > 0:
+                print('Se encontraron ' + str(cantidad_tableros) + ' tableros estáticos.')
+            else:
+                print('No se encontraron tableros estáticos.')
+
         else:
             raise PatronesMayoresALaDimencion
 
