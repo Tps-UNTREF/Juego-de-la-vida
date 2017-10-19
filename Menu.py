@@ -32,6 +32,8 @@ class Menu(object):
                     raise NumeroNoEstaEnMenu
             except (NumeroNoEstaEnMenu):
                 print('Por favor, ingrese un numero del 1 al 3.')
+            except (KeyboardInterrupt,EOFError):
+                print('Error atrapado de Ctrl-C')
                 
 
 
