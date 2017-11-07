@@ -31,6 +31,8 @@ class Menu(object):
                                 clave = self.leer_teclado('Ingrese posicion de guardado sin comillas: ')
                                 lista_posicion_tablero = self.persistencia.cargar_vida_estatica(direccion,clave)
                                 self.modo_estatico_cargado(lista_posicion_tablero[0],lista_posicion_tablero[1])
+                            else:
+                                raise NumeroNoEstaEnMenu
                         except PatronesMayoresALaDimencion:
                             print("Ingresar patron mas chico")
                         except (KeyboardInterrupt,EOFError):
@@ -42,6 +44,16 @@ class Menu(object):
                                 return self.menu()
                             elif condicion == 2:
                                 return self.menu()
+                        except NumeroNoEstaEnMenu:
+                            print('Por favor, elegí 1 o 2.')
+                        except FileNotFoundError:
+                            print('Archivo no encontrado. Ingresar ruta valida.')
+                        except TypeError:
+                            print('Ingrese una posición de carga valida.')
+                        except KeyError:
+                            print('Ingresar una clave valida en un archivo correcto.')
+                        except PermissionError:
+                            print('Ingrese una ruta valida.')
 
                 elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
