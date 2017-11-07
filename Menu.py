@@ -21,10 +21,28 @@ class Menu(object):
                     while True:
                         try:
                             '''MODO VIDA ESTATICA'''
-                            self.modo_estatico()
-                            return self.menu()
+                            cargar = self.leer_entero('Desea cargar algun modo de vida estatico pasado?: \n' '1- si \n'
+                                                       '2- no,continuar \n')
+                            if cargar == 2:
+                                self.modo_estatico()
+                                return self.menu()
+                            elif cargar == 1:
+                                direccion = self.leer_teclado('Ingrese ruta del archivo sin comillas: ')
+                                clave = self.leer_teclado('Ingrese posicion de guardado sin comillas: ')
+                                lista_posicion_tablero = self.persistencia.cargar_vida_estatica(direccion,clave)
+                                self.modo_estatico_cargado(lista_posicion_tablero[0],lista_posicion_tablero[1])
                         except PatronesMayoresALaDimencion:
                             print("Ingresar patron mas chico")
+                        except (KeyboardInterrupt,EOFError):
+                            condicion = self.leer_entero('Desea guardar el ultimo punto del modo de vida estatico? 1-Si 2-Salir')
+                            if condicion == 1:
+                                ruta = self.leer_teclado('Ingrese la ruta del archivo sin comillas:')
+                                clave = self.leer_teclado('Ingrese la clave para guardar el tablero sin comillas:')
+                                self.persistencia.guardar_vida_estatica_tupla(ruta, self.posicion_tupla_actual,self.tablero.matriz, clave)
+                                return self.menu()
+                            elif condicion == 2:
+                                return self.menu()
+
                 elif numero1 == 3:
                     print('El Programa se cerro correctamente!')
                     break
@@ -179,6 +197,7 @@ class Menu(object):
 
         if (patrones <= dimencion_de_tablero):
             for x in combinations(range(dimencion_de_tablero), patrones):
+                self.posicion_tupla_actual = x
                 self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
                 self.tablero.contador_vidas_estaticas = 0
                 self.tablero.diccionario_de_celdas = {}
@@ -190,6 +209,7 @@ class Menu(object):
                     self.tablero.rellenar_matriz_manualmente(coordenadas[0], coordenadas[1], '*')
 
                 self.tablero.mutar_celulas()
+
 
                 if self.tablero.matriz_antigua == self.tablero.matriz:
                     self.tablero.imprimir_tablero()
@@ -203,6 +223,48 @@ class Menu(object):
 
         else:
             raise PatronesMayoresALaDimencion
+
+    def modo_estatico_cargado(self, posicion_tupla_guardada, tablero):
+
+        empezar = False
+        self.tablero.matriz = tablero
+        fila = len(self.tablero.matriz)
+        columna = len(self.tablero.matriz[0])
+        contador_vivos = 0
+        patrones = len(posicion_tupla_guardada)
+        dimencion_de_tablero = fila * columna
+
+        cantidad_tableros = 0
+
+        if (patrones <= dimencion_de_tablero):
+            for x in combinations(range(dimencion_de_tablero), patrones):
+                self.tablero.matriz = self.tablero.matriz_nueva(fila, columna)
+                self.tablero.contador_vidas_estaticas = 0
+                self.tablero.diccionario_de_celdas = {}
+                if x == posicion_tupla_guardada:
+                    empezar = True
+                for posicion_tupla in x:  # este for rellena los vivos con las combinaciones
+                    coordenadas = (
+                            posicion_tupla // len(self.tablero.matriz[0]), posicion_tupla % len(self.tablero.matriz[0]))
+                    self.tablero.rellenar_matriz_manualmente(coordenadas[0], coordenadas[1], '*')
+
+                if empezar:
+                    self.tablero.mutar_celulas()
+
+                    if self.tablero.matriz_antigua == self.tablero.matriz:
+                        self.tablero.imprimir_tablero()
+                        cantidad_tableros += 1
+                        print('--------------------------------------')
+
+            if cantidad_tableros > 0:
+                print('Se encontraron ' + str(cantidad_tableros) + ' tableros estáticos.')
+            else:
+                print('No se encontraron tableros estáticos.')
+
+        else:
+            raise PatronesMayoresALaDimencion
+
+
 
     def leer_teclado(self, texto):
         while True:

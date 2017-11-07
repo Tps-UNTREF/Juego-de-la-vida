@@ -31,7 +31,7 @@ if __name__ == '__main__' :
 
 	cantidad = 0
 
-	for x in combinations(range(4), 4):
+	for x in combinations(range(25), 5):
 	    cantidad+=1
 	    print (x)
 	print("\nCantidad total de combinaciones: ",cantidad)
